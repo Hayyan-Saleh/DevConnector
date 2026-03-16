@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
