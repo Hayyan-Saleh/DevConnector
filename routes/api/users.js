@@ -4,7 +4,6 @@ import User from "../../models/User.js";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import config from "config";
 const router = express.Router();
 
 // @route    POST api/users
@@ -63,7 +62,7 @@ router.post(
       };
       jwt.sign(
         payload,
-        config.get("jwtSecret"),
+        process.env.JWT_SECRET,
         { expiresIn: 360000 },
         (err, token) => {
           if (err) {

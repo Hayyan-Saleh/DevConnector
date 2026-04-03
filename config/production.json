@@ -1,6 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://hayyansaleh233_db_user:LaqhA0fO0KmWYmIi@devconnector.9ln5lga.mongodb.net/?appName=DevConnector",
-    "jwtSecret": "devConnectorJWTSectret",
-    "githubClientId": "Ov23litqfugL7xfFaLwD",
-    "githubSecret": "96561853b84a5c0d6f726060792a122f0df5dd2d"
-}

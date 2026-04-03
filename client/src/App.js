@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // components
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
+import NotFound from "./components/layout/NotFound";
 import Login from "./components/auth/Login.js";
 import ALert from "./components/layout/alert.js";
 import Register from "./components/auth/Register.js";
@@ -159,6 +160,15 @@ const App = () => {
                 }
               />
             </Route>
+            <Route
+              path="*"
+              element={
+                <section className="container">
+                  <NotFound />
+                  <ALert />
+                </section>
+              }
+            />
           </Routes>
         </Fragment>
       </Router>

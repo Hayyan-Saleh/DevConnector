@@ -4,7 +4,6 @@ import User from "../../models/User.js";
 import { check, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import config from "config";
 
 const router = express.Router();
 
@@ -15,8 +14,8 @@ const router = express.Router();
 router.get("/", jwtMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
-    if (user.avatar && user.avatar.startsWith('//')) {
-      user.avatar = 'https:' + user.avatar;
+    if (user.avatar && user.avatar.startsWith("//")) {
+      user.avatar = "https:" + user.avatar;
       await user.save();
     }
     res.json(user);
@@ -65,7 +64,7 @@ router.post(
       };
       jwt.sign(
         payload,
-        config.get("jwtSecret"),
+        process.env.JWT_SECRET,
         { expiresIn: 360000 },
         (err, token) => {
           if (err) {

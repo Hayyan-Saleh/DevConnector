@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import config from "config";
 
 const jwtMiddleware = (req, res, next) => {
   // Check for jwt existance
@@ -10,7 +9,7 @@ const jwtMiddleware = (req, res, next) => {
   }
   // Validate token
   try {
-    const decoded = jwt.verify(token, config.get("jwtSecret"));
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = decoded.user;
     next();

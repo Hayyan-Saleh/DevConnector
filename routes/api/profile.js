@@ -4,7 +4,6 @@ import Profile from "../../models/Profile.js";
 import User from "../../models/User.js";
 import Post from "../../models/Post.js";
 import { check, validationResult } from "express-validator";
-import config from "config";
 import request from "request";
 
 const router = express.Router();
@@ -335,7 +334,7 @@ router.delete("/education/:edu_id", jwtMiddleware, async (req, res) => {
 router.get("/github/:username", async (req, res) => {
   try {
     const options = {
-      uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=create:asc&client_id=${config.get("githubClientId")}&client_secret=${config.get("githubSecret")}`,
+      uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=create:asc&client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_SECRET}`,
       method: "GET",
       headers: { "user-agent": "node.js " },
     };
