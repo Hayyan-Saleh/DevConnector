@@ -2,6 +2,7 @@ import express from "express";
 import jwtMiddleware from "../../middleware/auth.js";
 import Profile from "../../models/Profile.js";
 import User from "../../models/User.js";
+import Post from "../../models/Post.js";
 import { check, validationResult } from "express-validator";
 import config from "config";
 import request from "request";
@@ -21,6 +22,15 @@ router.get("/me", jwtMiddleware, async (req, res) => {
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });
     }
+
+    if (
+      profile.user &&
+      profile.user.avatar &&
+      profile.user.avatar.startsWith("//")
+    ) {
+      profile.user.avatar = "https:" + profile.user.avatar;
+    }
+
     return res.json(profile);
   } catch (err) {
     console.error(err.message);
@@ -73,28 +83,33 @@ router.post("/", [
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     if (skills) {
-      profileFields.skills = skills.split(",").map((skill) => skill.trim());
+      profileFields.skills =
+        typeof skills === "string"
+          ? skills.split(",").map((skill) => skill.trim())
+          : skills;
     }
 
     profileFields.social = {};
-
     if (youtube) profileFields.social.youtube = youtube;
     if (x) profileFields.social.x = x;
     if (facebook) profileFields.social.facebook = facebook;
     if (instagram) profileFields.social.instagram = instagram;
     if (linkedin) profileFields.social.linkedin = linkedin;
 
+    // Only include social if it has values
+    if (Object.keys(profileFields.social).length === 0) {
+      delete profileFields.social;
+    }
     try {
       let profile = await Profile.findOne({ user: req.user.id });
       //   Update
       if (profile) {
-        await Profile.findOneAndUpdate(
+        const updatedProfile = await Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
           { returnDocument: "after" },
         );
-
-        return res.json(profile);
+        return res.json(updatedProfile);
       }
 
       //   Create
@@ -157,7 +172,8 @@ router.get("/user/:user_id", async (req, res) => {
 
 router.delete("/", jwtMiddleware, async (req, res) => {
   try {
-    // TODO: Remove users posts
+    // Remove users posts
+    await Post.deleteMany({ user: req.user.id });
     // Remove Profile
     await Profile.deleteOne({ user: req.user.id });
     // Remove User

@@ -42,11 +42,12 @@ router.post(
         r: "pg", // avoid sexual content (+18)
         d: "mm",
       });
+      const avatarUrl = `https:${avatar}`;
 
       user = new User({
         name,
         email,
-        avatar,
+        avatar: avatarUrl,
         password,
       });
       // Encrypt password

@@ -1,3 +1,10 @@
 const API_PREFIX = "/api";
 export const USERS_URL = `${API_PREFIX}/users`;
 export const AUTH_URL = `${API_PREFIX}/auth`;
+export const PROFILE_URL = `${API_PREFIX}/profile`;
+export const PROFILE_EXP_URL = `${PROFILE_URL}/experience`;
+export const PROFILE_EDU_URL = `${PROFILE_URL}/education`;
+export const POST_URL = `${API_PREFIX}/posts`;
+export const COMMENT_URL = `${POST_URL}/comment`;
+export const LIKE_URL = `${POST_URL}/like`;
+export const UNLIKE_URL = `${POST_URL}/unlike`;

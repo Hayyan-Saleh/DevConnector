@@ -15,6 +15,10 @@ const router = express.Router();
 router.get("/", jwtMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
+    if (user.avatar && user.avatar.startsWith('//')) {
+      user.avatar = 'https:' + user.avatar;
+      await user.save();
+    }
     res.json(user);
   } catch (err) {
     console.error(err.message);
