@@ -1,0 +1,17 @@
+🚀 Built DevConnector, a MERN social network for developers.
+
+Key features:
+🔹 User registration and login with JWT authentication
+🔹 User profiles with experience, education, and GitHub integration
+🔹 Post creation, commenting, liking, and full CRUD support
+🔹 Responsive React frontend with Redux state management and React Router
+🔹 Express API backend with MongoDB/Mongoose data models
+🔹 Validation, protected routes, and alert feedback
+
+Deployment:
+- App deployed successfully on Render using a custom build script
+
+Tech stack:
+React, Redux, Node.js, Express, MongoDB, JWT, Render
+
+Proud to ship a full-stack project end-to-end and deploy it smoothly to production.
